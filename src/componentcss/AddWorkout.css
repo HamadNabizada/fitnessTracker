@@ -1,0 +1,13 @@
+.button-add-exercise{
+    background-color:lemonchiffon;
+    border: 1px solid gray;
+    padding: .5rem;
+    border-radius: 10px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.button-add-exercise:hover{
+    cursor: pointer;
+}
+.button-add-exercise:active{
+    background-color: yellow;
+}
