@@ -2,11 +2,11 @@ import './../componentcss/AddWorkout.css'
 
 
 
-export default function AddWorkout(){
+export default function AddWorkout({handleClick}){
 
     return(
         <>
-            <button className='button-add-exercise'>+ Add Exercise</button>
+            <button onClick={handleClick} className='button-add-exercise'>+ Add Exercise</button>
         </>
     )
 }

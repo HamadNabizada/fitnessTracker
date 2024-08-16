@@ -1,6 +1,7 @@
 import './../componentcss/WorkoutInputForm.css'
+import SubmitButton from './SubmitButton'
 
-export default function WorkoutInputForm(){
+export default function WorkoutInputForm({handleSubmit}){
 
     return(
         <>
@@ -17,6 +18,7 @@ export default function WorkoutInputForm(){
                     <input className='input-styling'></input>
                     <label>Weight</label>
                 </div>
+                <SubmitButton handleSubmit={handleSubmit}/>
             </div>
         </>
     )

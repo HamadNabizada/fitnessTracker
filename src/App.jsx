@@ -1,19 +1,26 @@
 import './App.css'
 import AddWorkout from './components/AddWorkout'
 import WorkoutInputForm from './components/WorkoutInputForm'
-import SubmitButton from './components/SubmitButton'
+import { useState } from 'react'
 
 function App() {
-
+  let [addingExercise, setAddingExercise] = useState(false);
   let listOfExercises = []
   
   const emptyListElem = (
-    <h2>No Current Exercises</h2>
+    <p>No Current Exercises</p>
   )
   let listOfExercisesElem = (
-    <h2>Bench Press, 5x5, 135lb</h2>
+    <p>Bench Press, 5x5, 135lb</p>
   )
-  
+
+
+  function addNewExercise(){
+    setAddingExercise(true)
+  }
+  function submitInputForm(){
+    setAddingExercise(false)
+  }
 
   return (
     <>
@@ -21,11 +28,9 @@ function App() {
         <h1 className='header-title' >Fitness Journal</h1>
         <div className='header-date'>DATE</div>
       </div>
-      {listOfExercises.length == 0 ? emptyListElem : listOfExercisesElem}
       <div className='workout-chart-wrapper'>
-        <WorkoutInputForm/>
-        <AddWorkout/>
-        <SubmitButton/>
+      {listOfExercises.length == 0 ? emptyListElem : listOfExercisesElem}
+      {!addingExercise ? <AddWorkout handleClick={addNewExercise} /> : <WorkoutInputForm handleSubmit={submitInputForm}/>}
       </div>
     </>
   )

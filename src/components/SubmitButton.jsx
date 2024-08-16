@@ -1,10 +1,10 @@
 import './../componentcss/SubmitButton.css'
 
-export default function SubmitWorkoutInputForm(){
+export default function SubmitButton({handleSubmit}){
 
     return(
         <>
-            <button className="button-submit">Submit</button>
+            <button onClick={handleSubmit} className="button-submit">Submit</button>
         </>
     )
 }
