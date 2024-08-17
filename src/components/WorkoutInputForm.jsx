@@ -7,10 +7,6 @@ export default function WorkoutInputForm({
     handleChange
 }){
 
-    function logInfo(){
-        console.log(exerciseForm)
-    }
-
     return(
         <>
             <div className='input-wrapper'>
@@ -27,7 +23,6 @@ export default function WorkoutInputForm({
                     <label>Weight</label>
                 </div>
                 <SubmitButton handleSubmit={handleSubmit}/>
-                <button onClick={logInfo}>LOG</button>
             </div>
         </>
     )

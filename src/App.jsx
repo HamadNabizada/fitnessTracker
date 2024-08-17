@@ -1,41 +1,45 @@
 import './App.css'
 import AddWorkout from './components/AddWorkout'
 import WorkoutInputForm from './components/WorkoutInputForm'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function App() {
-  let [addingExercise, setAddingExercise] = useState(false);
-  let listOfExercises = []
-  let [exerciseForm, setExerciseForm] = useState({
+  const [addingExercise, setAddingExercise] = useState(false);
+  const [listOfExercises, setListOfExercises] = useState([])
+  const [exerciseForm, setExerciseForm] = useState({
     exerciseName:'Exercise Name',
     reps:0,
     weight:0
   })
   
-  const emptyListElem = (
-    <p>No Current Exercises</p>
-  )
-  let listOfExercisesElem = (
-    <p>Bench Press, 5x5, 135lb</p>
-  )
 
-  let [title, setTitle] = useState({first: "default title"})
-  function titleChange(e){
-    console.log(`title before change: ${title.first}`)
-    setTitle({first:"changed"})
-    console.log(`title after change: ${title.first}`)
+  function createWorkoutLogElems(){
+
+    if(listOfExercises.length === 0){
+      return <p>No Current Exercises</p>
+    }
+    return listOfExercises.map((item,index)=>{
+      return <p key={index}>{`${item.exerciseName}, ${item.reps}, ${item.weight}`}</p>
+    })
   }
+
 
   function addNewExercise(){
     setAddingExercise(true)
   }
   function submitInputForm(){
+    setListOfExercises(prev =>(
+      [
+        ...prev,
+        {
+          ...exerciseForm
+        }
+      ]
+    ))
     setAddingExercise(false)
   }
  
   function handleChange(e){
-    // setExerciseForm()
-    console.log('updating change')
     setExerciseForm(prev=>(
       {
         ...prev,
@@ -51,9 +55,9 @@ function App() {
         <div className='header-date'>DATE</div>
       </div>
       <div className='workout-chart-wrapper'>
-      {listOfExercises.length == 0 ? emptyListElem : listOfExercisesElem}
+      {createWorkoutLogElems()}
       {!addingExercise ? <AddWorkout handleClick={addNewExercise} /> : 
-        <WorkoutInputForm titleChange={titleChange} title={title} handleChange={handleChange} exerciseForm={exerciseForm} handleSubmit={submitInputForm}/>}
+        <WorkoutInputForm handleChange={handleChange} exerciseForm={exerciseForm} handleSubmit={submitInputForm}/>}
       </div>
     </>
   )
