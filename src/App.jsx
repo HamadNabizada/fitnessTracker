@@ -1,67 +1,23 @@
-import './App.css'
-import AddWorkout from './components/AddWorkout'
-import WorkoutInputForm from './components/WorkoutInputForm'
-import { useEffect, useState } from 'react'
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom"
+import Home from './Home'
+import Login from './components/Login'
 
-function App() {
-  const [addingExercise, setAddingExercise] = useState(false);
-  const [listOfExercises, setListOfExercises] = useState([])
-  const [exerciseForm, setExerciseForm] = useState({
-    exerciseName:'Exercise Name',
-    reps:0,
-    weight:0
-  })
-  
-
-  function createWorkoutLogElems(){
-
-    if(listOfExercises.length === 0){
-      return <p>No Current Exercises</p>
-    }
-    return listOfExercises.map((item,index)=>{
-      return <p key={index}>{`${item.exerciseName}, ${item.reps}, ${item.weight}`}</p>
-    })
-  }
-
-
-  function addNewExercise(){
-    setAddingExercise(true)
-  }
-  function submitInputForm(){
-    setListOfExercises(prev =>(
-      [
-        ...prev,
-        {
-          ...exerciseForm
-        }
-      ]
-    ))
-    setAddingExercise(false)
-  }
- 
-  function handleChange(e){
-    setExerciseForm(prev=>(
-      {
-        ...prev,
-        [e.target.name]:e.target.value
-      }
-    ))
-  }
+export default function App(){
 
   return (
-    <>
-      <div className='header'>
-        <h1 className='header-title' >Fitness Journal</h1>
-        <div className='header-date'>DATE</div>
-      </div>
-      <div className='workout-chart-wrapper'>
-      {createWorkoutLogElems()}
-      {!addingExercise ? <AddWorkout handleClick={addNewExercise} /> : 
-        <WorkoutInputForm handleChange={handleChange} exerciseForm={exerciseForm} handleSubmit={submitInputForm}/>}
-      </div>
-    </>
+    <BrowserRouter>
+      <header>
+        <nav> 
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/login">Login</NavLink>
+        </nav>
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/login" element={<Login/>} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   )
 }
-
-
-export default App
