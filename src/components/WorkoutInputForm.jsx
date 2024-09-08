@@ -1,5 +1,3 @@
-import './../componentcss/WorkoutInputForm.css'
-import SubmitButton from './SubmitButton'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
@@ -57,16 +55,3 @@ export default function WorkoutInputForm({
         </Container>
     )
 }
-
-{/* <div className='input-label-pair'>
-                    <input onClick={(e)=>e.target.select()} name='exerciseName' onChange={handleChange} value={exerciseForm.exerciseName} className='input-styling'></input>
-                    <label>Exercise Name</label>
-                </div>
-                <div className='input-label-pair'>
-                    <input onClick={(e)=>e.target.select()}  name='reps' onChange={handleChange} value={exerciseForm.reps} className='input-styling'></input>
-                    <label>Reps</label>
-                </div>
-                <div className='input-label-pair'>
-                    <input onClick={(e)=>e.target.select()} name='weight' onChange={handleChange} value={exerciseForm.weight} className='input-styling'></input>
-                    <label>Weight</label>
-                </div> */}

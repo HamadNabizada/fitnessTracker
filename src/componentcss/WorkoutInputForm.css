@@ -1,9 +1,0 @@
-.input-wrapper{
-    display: flex;
-    gap: 1rem;
-}
-.input-label-pair{
-    display:flex;
-    flex:1;
-    flex-direction: column;
-}

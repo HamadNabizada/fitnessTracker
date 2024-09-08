@@ -50,7 +50,6 @@ export default function Home() {
                 {`${item.exerciseName}, ${item.reps}, ${item.weight}`}
             </Typography>
         )
-    //   return <p key={index}>{`${item.exerciseName}, ${item.reps}, ${item.weight}`}</p>
     })
   }
 

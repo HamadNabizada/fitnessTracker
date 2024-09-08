@@ -1,5 +1,5 @@
 import { useState } from "react"
-import SubmitButton from "./components/SubmitButton"
+// import SubmitButton from "./components/SubmitButton"
 
 export default function Login(){
 
@@ -37,7 +37,7 @@ async function submitCredentials(){
                 <p>Password: </p>
                 <input onChange={handleChange} name="password" type="text" />
             </div>
-            <SubmitButton handleSubmit={submitCredentials} />
+            {/* <SubmitButton handleSubmit={submitCredentials} /> */}
         </>
     )   
 }
