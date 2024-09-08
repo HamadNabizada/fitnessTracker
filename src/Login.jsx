@@ -1,5 +1,5 @@
 import { useState } from "react"
-import SubmitButton from "./SubmitButton"
+import SubmitButton from "./components/SubmitButton"
 
 export default function Login(){
 

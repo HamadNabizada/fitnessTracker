@@ -1,16 +1,24 @@
-import './App.css'
-import AddWorkout from './components/AddWorkout'
 import WorkoutInputForm from './components/WorkoutInputForm'
 import { useEffect, useState } from 'react'
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button'
+
 
 export default function Home() {
   const [addingExercise, setAddingExercise] = useState(false);
   const [listOfExercises, setListOfExercises] = useState([])
   const [exerciseForm, setExerciseForm] = useState({
-    exerciseName:'Exercise Name',
-    reps:0,
-    weight:0
+    exerciseName:null,
+    reps:null,
+    weight:null
   })
+  const [errorForm, SetErrorForm] = useState({
+    exerciseNameError:false,
+    repsError:false,
+    weightError:false
+})
   
   const url = 'http://localhost:3000/api/data'
 
@@ -30,10 +38,19 @@ export default function Home() {
   function createWorkoutLogElems(){
 
     if(listOfExercises.length === 0){
-      return <p>No Current Exercises</p>
+      return <Typography align='center' >--- No Current Exercises ---</Typography>
     }
     return listOfExercises.map((item,index)=>{
-      return <p key={index}>{`${item.exerciseName}, ${item.reps}, ${item.weight}`}</p>
+        return(
+            <Typography
+                key={index}
+                variant='body1'
+
+            >
+                {`${item.exerciseName}, ${item.reps}, ${item.weight}`}
+            </Typography>
+        )
+    //   return <p key={index}>{`${item.exerciseName}, ${item.reps}, ${item.weight}`}</p>
     })
   }
 
@@ -41,16 +58,49 @@ export default function Home() {
   function addNewExercise(){
     setAddingExercise(true)
   }
-  function submitInputForm(){
-    setListOfExercises(prev =>(
-      [
-        ...prev,
-        {
-          ...exerciseForm
+  function submitInputForm(e){
+    e.preventDefault()
+    if( exerciseForm.weight && exerciseForm.reps && exerciseForm.exerciseName){
+        setListOfExercises(prev =>(
+          [
+            ...prev,
+            {
+              ...exerciseForm
+            }
+          ]
+        ))
+        setAddingExercise(false)
+    }else{
+        SetErrorForm({
+            exerciseNameError:false,
+            repsError:false,
+            weightError:false
+        })
+        if(!exerciseForm.exerciseName){
+            SetErrorForm(prev =>(
+                {
+                    ...prev,
+                    exerciseName: true
+                }
+            ))
         }
-      ]
-    ))
-    setAddingExercise(false)
+        if(!exerciseForm.weight){
+            SetErrorForm(prev =>(
+                {
+                    ...prev,
+                    weight: true
+                }
+            ))
+        }
+        if(!exerciseForm.reps){
+            SetErrorForm(prev =>(
+                {
+                    ...prev,
+                    reps: true
+                }
+            ))
+        }
+    }
   }
  
   function handleChange(e){
@@ -63,16 +113,43 @@ export default function Home() {
   }
 
   return (
-    <>
-      <div className='header'>
-        <h1 className='header-title' >Fitness Journal</h1>
-        <div className='header-date'>DATE</div>
-      </div>
-      <div className='workout-chart-wrapper'>
-      {createWorkoutLogElems()}
-      {!addingExercise ? <AddWorkout handleClick={addNewExercise} /> : 
-        <WorkoutInputForm handleChange={handleChange} exerciseForm={exerciseForm} handleSubmit={submitInputForm}/>}
-      </div>
-    </>
+    <Container>
+      <Stack
+        direction='row'
+        sx={{
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+      >
+        <Typography 
+            variant='h3' 
+            component='h1'
+            color="primary"
+            align='left'
+        >
+            Fitness Journal
+        </Typography>
+        <Typography
+            variant='h5'
+            component='h3'
+            align='right'
+            color='secondary'
+        >
+            Date
+        </Typography>
+      </Stack>
+      <Stack>
+        {createWorkoutLogElems()}
+        {!addingExercise ?             
+            <Button 
+                variant='contained'
+                color='secondary'
+                onClick={addNewExercise}
+            >
+                + Add Exercise
+            </Button> : 
+            <WorkoutInputForm handleChange={handleChange} errorForm={errorForm} handleSubmit={submitInputForm}/>}
+      </Stack>
+    </Container>
   )
 }
