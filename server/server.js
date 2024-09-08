@@ -18,9 +18,6 @@ app.get('/api/data',(req,res)=>{
 })
 
 app.post('/api/data',(req,res)=>{
-    const data = req.body
-
-    console.log(`Username: ${data.username}  Password: ${data.password}`)
     console.log('Post Request Success')
 })
 

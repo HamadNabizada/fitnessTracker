@@ -1,11 +1,15 @@
 import { useState } from "react"
-// import SubmitButton from "./components/SubmitButton"
+import { Container,TextField, Button } from "@mui/material"
 
 export default function Login(){
 
 const [loginCredentials, setLoginCredentials] = useState({
     username: null,
     password: null
+})
+const [loginCredentialsValidation, setLoginCredentialsValidation] = useState({
+    usernameError: false,
+    passwordError: false
 })
 
 function handleChange(e){
@@ -15,8 +19,36 @@ function handleChange(e){
         }
     ))
 }
-async function submitCredentials(){
-    console.log('submitted')
+function submitCredentials(e){
+    e.preventDefault()
+    if(loginCredentials.username && loginCredentials.password){
+        submitCredentialsToServer()
+    }else{
+        setLoginCredentialsValidation({
+            usernameError: false,
+            passwordError: false
+        })
+        if(!loginCredentials.username){
+            setLoginCredentialsValidation(prev =>(
+                {
+                    ...prev,
+                    usernameError: true
+                }
+            ))
+        }
+        if(!loginCredentials.password){
+            setLoginCredentialsValidation(prev =>(
+                {
+                    ...prev,
+                    passwordError: true
+                }
+            ))
+        }
+    }
+}
+
+async function submitCredentialsToServer(){
+    
     const response = await fetch("http://localhost:3000/api/data",{
         method: 'POST',
         headers: {
@@ -24,20 +56,41 @@ async function submitCredentials(){
         },
         body: JSON.stringify({...loginCredentials})
     })
-    const data = await response.json()
+    // const data = await response.json()
 }
 
     return (
-        <>
-            <div>
-                <p>Username: </p>
-                <input onChange={handleChange} name="username" type="text" />
-            </div>
-            <div>
-                <p>Password: </p>
-                <input onChange={handleChange} name="password" type="text" />
-            </div>
-            {/* <SubmitButton handleSubmit={submitCredentials} /> */}
-        </>
+        <Container>
+            <form
+                autoComplete="off"
+                noValidate
+                onSubmit={submitCredentials}
+            >
+                <TextField
+                    onChange={handleChange}
+                    color='primary'
+                    required
+                    label='Username'
+                    variant="outlined"
+                    name='username'
+                    error={loginCredentialsValidation.usernameError}
+                />
+                <TextField
+                    onChange={handleChange}
+                    color='primary'
+                    required
+                    label='Password'
+                    variant="outlined"
+                    name='password'
+                    error={loginCredentialsValidation.passwordError}
+                />
+                <Button
+                    variant="outlined"
+                    type="submit"
+                >
+                    Submit
+                </Button>
+            </form>
+        </Container>
     )   
 }
