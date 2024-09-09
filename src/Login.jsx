@@ -70,15 +70,17 @@ async function submitCredentialsToServer(){
             <Grid
                 container
                 direction='column'
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}
             >
                 <Grid>
                     <Paper
-                        sx={
-                            {
-                                padding: 2,
-                                margin: 1
-                            }
-                        }
+                        sx={{
+                            padding: 2,
+                            margin: 1
+                        }}
                     >
 
                         <Box

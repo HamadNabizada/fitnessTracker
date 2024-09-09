@@ -4,6 +4,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button'
+import { AppBar, keyframes, Toolbar } from '@mui/material'
+import { format } from 'date-fns'
 
 
 export default function Home() {
@@ -19,6 +21,19 @@ export default function Home() {
     repsError:false,
     weightError:false
 })
+
+  const drawerWidth = 240
+
+  const styles = {
+    appBar: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      backgroundColor: '#f5f5f5',
+      color: '#9c27b0',
+    },
+    toolbar: {
+        height: '65.3px'
+    }
+  }
   
   const url = 'http://localhost:3000/api/data'
 
@@ -113,8 +128,16 @@ export default function Home() {
 
   return (
     <Container>
+       <AppBar
+          sx={{...styles.appBar}}
+          elevation={0}
+        >
+          <Toolbar >
+              <Typography variant="body1">Today is the {format(new Date(), 'do MMMM Y')} </Typography>
+          </Toolbar>
+        </AppBar>
       <Stack
-        direction='row'
+        direction='column'
         sx={{
             justifyContent: "space-between",
             alignItems: "center",
@@ -123,18 +146,10 @@ export default function Home() {
         <Typography 
             variant='h3' 
             component='h1'
-            color="primary"
-            align='left'
+            color="secondary"
+            align='center'
         >
             Fitness Journal
-        </Typography>
-        <Typography
-            variant='h5'
-            component='h3'
-            align='right'
-            color='secondary'
-        >
-            Date
         </Typography>
       </Stack>
       <Stack>
