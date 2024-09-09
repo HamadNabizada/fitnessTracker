@@ -2,6 +2,7 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
+import { Box } from '@mui/material'
 
 
 export default function WorkoutInputForm({
@@ -12,10 +13,17 @@ export default function WorkoutInputForm({
 
     return(
         <Container>
-            <Stack
-                direction='row'
-            >
-                <form noValidate autoComplete='off' onSubmit={handleSubmit}>
+                <Box 
+                    component='form' 
+                    noValidate 
+                    autoComplete='off' 
+                    onSubmit={handleSubmit}
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between'
+                    }}
+                >
                     <TextField 
                         onChange={handleChange}
                         color='primary' 
@@ -50,8 +58,7 @@ export default function WorkoutInputForm({
                     >   
                         Submit
                     </Button>
-                </form>
-            </Stack>
+                </Box>
         </Container>
     )
 }

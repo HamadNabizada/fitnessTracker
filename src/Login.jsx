@@ -1,7 +1,11 @@
 import { useState } from "react"
-import { Container,TextField, Button } from "@mui/material"
+import { Container, TextField, Button, Stack, Typography } from "@mui/material"
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid2';
+import {Box} from "@mui/material";
 
 export default function Login(){
+
 
 const [loginCredentials, setLoginCredentials] = useState({
     username: null,
@@ -60,37 +64,65 @@ async function submitCredentialsToServer(){
 }
 
     return (
-        <Container>
-            <form
-                autoComplete="off"
-                noValidate
-                onSubmit={submitCredentials}
+        <Container
+            maxWidth="xs"
+        >
+            <Grid
+                container
+                direction='column'
             >
-                <TextField
-                    onChange={handleChange}
-                    color='primary'
-                    required
-                    label='Username'
-                    variant="outlined"
-                    name='username'
-                    error={loginCredentialsValidation.usernameError}
-                />
-                <TextField
-                    onChange={handleChange}
-                    color='primary'
-                    required
-                    label='Password'
-                    variant="outlined"
-                    name='password'
-                    error={loginCredentialsValidation.passwordError}
-                />
-                <Button
-                    variant="outlined"
-                    type="submit"
-                >
-                    Submit
-                </Button>
-            </form>
+                <Grid>
+                    <Paper
+                        sx={
+                            {
+                                padding: 2,
+                                margin: 1
+                            }
+                        }
+                    >
+
+                        <Box
+                            component="form"
+                            autoComplete="off"
+                            noValidate
+                            onSubmit={submitCredentials}
+                            sx={{
+                                display:'flex',
+                                flexDirection:'column',
+                                gap: '1rem'
+                            }}
+                        >
+                            <Typography component='h2' variant="h4" >Sign In</Typography>
+                            <TextField
+                                fullWidth
+                                onChange={handleChange}
+                                color='primary'
+                                required
+                                label='Username'
+                                variant="outlined"
+                                name='username'
+                                error={loginCredentialsValidation.usernameError}
+                            />
+                            <TextField
+                                fullWidth
+                                onChange={handleChange}
+                                color='primary'
+                                required
+                                label='Password'
+                                variant="outlined"
+                                name='password'
+                                error={loginCredentialsValidation.passwordError}
+                            />
+                            <Button
+                                variant="outlined"
+                                type="submit"
+                            >
+                                Submit
+                            </Button>
+                        </Box>
+                    </Paper>
+                </Grid>
+            </Grid>
         </Container>
     )   
 }
