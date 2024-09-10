@@ -1,7 +1,14 @@
-const express = require('express')
+import express from 'express'
+import cors from 'cors'
+import admin from 'firebase-admin'
+import dotenv from 'dotenv'
+
+
+dotenv.config()
+
 const app = express()
 const port = 3000;
-const cors = require('cors')
+
 
 const corsOptions = {
     origin: "*"
@@ -9,9 +16,6 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 app.use(express.json());
-
-
-
 
 app.get('/api/data',(req,res)=>{
     console.log('Get Request Success')
