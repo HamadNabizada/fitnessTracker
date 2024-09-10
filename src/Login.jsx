@@ -3,9 +3,11 @@ import { Container, TextField, Button, Stack, Typography } from "@mui/material"
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid2';
 import {Box} from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function Login(){
 
+const navigateTo = useNavigate()
 
 const [loginCredentials, setLoginCredentials] = useState({
     username: null,
@@ -64,67 +66,61 @@ async function submitCredentialsToServer(){
 }
 
     return (
-        <Container
-            maxWidth="xs"
-        >
-            <Grid
-                container
-                direction='column'
+        <Container maxWidth="xs">
+            <Box
+                component="form"
+                autoComplete="off"
+                noValidate
+                onSubmit={submitCredentials}
                 sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
+                    display:'flex',
+                    flexDirection:'column',
+                    gap: '1rem',
+                    alignItems: 'center',
+                    border: '1px solid black',
+                    padding: '1rem',
+                    borderRadius: '5px',
                 }}
             >
-                <Grid>
-                    <Paper
-                        sx={{
-                            padding: 2,
-                            margin: 1
-                        }}
+                <Typography component='h2' variant="h4" >Sign In</Typography>
+                <TextField
+                    fullWidth
+                    onChange={handleChange}
+                    color='primary'
+                    required
+                    label='Username'
+                    variant="outlined"
+                    name='username'
+                    error={loginCredentialsValidation.usernameError}
+                />
+                <TextField
+                    fullWidth
+                    onChange={handleChange}
+                    color='primary'
+                    required
+                    label='Password'
+                    variant="outlined"
+                    name='password'
+                    error={loginCredentialsValidation.passwordError}
+                />
+                <Box sx={{
+                    display: 'flex',
+                    gap: '1rem',
+                }}>
+                    <Button
+                        variant="contained"
+                        type="submit"
                     >
-
-                        <Box
-                            component="form"
-                            autoComplete="off"
-                            noValidate
-                            onSubmit={submitCredentials}
-                            sx={{
-                                display:'flex',
-                                flexDirection:'column',
-                                gap: '1rem'
-                            }}
-                        >
-                            <Typography component='h2' variant="h4" >Sign In</Typography>
-                            <TextField
-                                fullWidth
-                                onChange={handleChange}
-                                color='primary'
-                                required
-                                label='Username'
-                                variant="outlined"
-                                name='username'
-                                error={loginCredentialsValidation.usernameError}
-                            />
-                            <TextField
-                                fullWidth
-                                onChange={handleChange}
-                                color='primary'
-                                required
-                                label='Password'
-                                variant="outlined"
-                                name='password'
-                                error={loginCredentialsValidation.passwordError}
-                            />
-                            <Button
-                                variant="outlined"
-                                type="submit"
-                            >
-                                Submit
-                            </Button>
-                        </Box>
-                    </Paper>
-                </Grid>
-            </Grid>
+                        Log in
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        onClick={()=>navigateTo('/signup')}
+                    >
+                        Sign up
+                    </Button>
+                </Box>
+            </Box>
         </Container>
     )   
 }

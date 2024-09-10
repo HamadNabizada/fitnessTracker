@@ -133,7 +133,7 @@ export default function Home() {
           elevation={0}
         >
           <Toolbar >
-              <Typography variant="body1">Today is the {format(new Date(), 'do MMMM Y')} </Typography>
+              <Typography variant="body1">Today is the {format(new Date(), 'do MMMM y')} </Typography>
           </Toolbar>
         </AppBar>
       <Stack

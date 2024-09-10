@@ -20,6 +20,9 @@ app.get('/api/data',(req,res)=>{
 app.post('/api/data',(req,res)=>{
     console.log('Post Request Success')
 })
+app.post('/api/signup',(req,res)=>{
+    console.log('Post Request Success')
+})
 
 app.listen(port, ()=>{
     console.log(`Listening on port ${port}`)
