@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid2';
 import {Box} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+
 export default function Login(){
 
 const navigateTo = useNavigate()

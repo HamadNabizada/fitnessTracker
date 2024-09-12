@@ -1,6 +1,6 @@
 import { Box, Container, Typography, TextField, Button } from "@mui/material"
-import e from "cors"
 import { useState } from "react"
+import { signUpUserWithEmailAndPassword, signUserInAnonymously } from "../firebase/auth"
 
 export default function SignUp(){
 
@@ -18,7 +18,7 @@ export default function SignUp(){
     function submitCredentials(e){
         e.preventDefault()
         if((credentials.username && credentials.passwordOne) && (credentials.passwordOne === credentials.passwordTwo)){
-            submitCredentialsToServer()
+            signUpUserWithEmailAndPassword(credentials.username, credentials.passwordOne)
         }else{
             setCredentialsError({usernameError: false, passwordOneError: false, passwordTwoError: false})
             if(!credentials.username){
@@ -65,18 +65,6 @@ export default function SignUp(){
             }
         ))
     }
-
-    async function submitCredentialsToServer(){
-        const response = await fetch("http://localhost:3000/api/signup",{
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({...credentials})
-        })
-        // const data = await response.json()
-    }
-
 
     return(
         <Container maxWidth="xs">
@@ -130,12 +118,8 @@ export default function SignUp(){
                     display: 'flex',
                     gap: '1rem',
                 }}>
-                    <Button
-                        variant="contained"
-                        type="submit"
-                    >
-                        Sign up
-                    </Button>
+                    <Button variant="contained" type="submit">Sign up</Button>
+                    <Button onClick={() => signUserInAnonymously()} variant="outlined">Sign In Anonymously</Button>
                 </Box>
             </Box>
         </Container>

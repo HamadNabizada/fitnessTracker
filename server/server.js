@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import {firebaseConnect, db as database} from './firebase.js';
 import dotenv from 'dotenv'
+// import { Router } from 'express';
 dotenv.config()
 
 const app = express()
