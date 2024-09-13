@@ -4,10 +4,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button'
-import { AppBar, keyframes, Toolbar } from '@mui/material'
+import { AppBar, Box, keyframes, Toolbar } from '@mui/material'
 import { format } from 'date-fns'
 import { useAuth } from './context/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Link } from '@mui/material'
 
 
 export default function Home() {
@@ -132,6 +132,15 @@ export default function Home() {
 
   return (
     <Container>
+      {!currentUser ? 
+      <>
+        <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+          <Typography variant='h3'>Welcome.</Typography> 
+          <Typography variant='h5'>Please <Link path="/login">log in.</Link></Typography> 
+        </Box>
+        
+      </>: 
+      <>
        <AppBar
           sx={{...styles.appBar}}
           elevation={0}
@@ -168,6 +177,7 @@ export default function Home() {
             </Button> : 
             <WorkoutInputForm handleChange={handleChange} errorForm={errorForm} handleSubmit={submitInputForm}/>}
       </Stack>
+      </>}
     </Container>
   )
 }

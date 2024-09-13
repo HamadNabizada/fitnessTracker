@@ -1,10 +1,10 @@
 import { Box, Container, Typography, TextField, Button } from "@mui/material"
 import { useState } from "react"
-import { useAuth, signUpUserWithEmailAndPassword } from "./context/AuthContext"
+import { signUpUserWithEmailAndPassword } from "./context/AuthContext"
+import { useNavigate } from "react-router-dom"
 
 export default function SignUp(){
-
-    const { currentUser } = useAuth()
+    const navigateTo = useNavigate()
 
     const [credentials, setCredentials] = useState({
         username: null,
@@ -22,6 +22,7 @@ export default function SignUp(){
         if((credentials.username && credentials.passwordOne) && (credentials.passwordOne === credentials.passwordTwo)){
             try{
                 signUpUserWithEmailAndPassword(credentials.username, credentials.passwordOne)
+                navigateTo('/')
             }catch (error){
                 console.log(error);
             }

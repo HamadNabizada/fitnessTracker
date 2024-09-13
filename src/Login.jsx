@@ -34,6 +34,7 @@ async function submitCredentials(e){
     if(loginCredentials.username && loginCredentials.password){
         try {
            await loginWithEmailAndPassword(loginCredentials.username,loginCredentials.password)
+           navigateTo('/')
         } catch {
             setError(true)
         }
@@ -60,18 +61,6 @@ async function submitCredentials(e){
         }
     }
 }
-
-// async function submitCredentialsToServer(){
-    
-//     const response = await fetch("http://localhost:3000/api/data",{
-//         method: 'POST',
-//         headers: {
-//             'Content-type': 'application/json'
-//         },
-//         body: JSON.stringify({...loginCredentials})
-//     })
-//     // const data = await response.json()
-// }
 
     return (
         <Container maxWidth="xs">
@@ -124,7 +113,10 @@ async function submitCredentials(e){
                         >
                             Log in
                         </Button>
-                        <Button onClick={() => signUserInAnonymously()} variant="outlined">Sign In Anonymously</Button>
+                        <Button onClick={() => {
+                            signUserInAnonymously()
+                            navigateTo('/')
+                        }} variant="outlined">Sign In Anonymously</Button>
                     </Box>
                     <Typography variant="body1" textAlign='center'>OR</Typography>
                         <Button
