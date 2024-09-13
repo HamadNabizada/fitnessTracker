@@ -1,7 +1,6 @@
 import { Box, Container, Typography, TextField, Button } from "@mui/material"
 import { useState } from "react"
-import { signUpUserWithEmailAndPassword } from "../firebase/auth"
-import { useAuth } from "./context/AuthContext"
+import { useAuth, signUpUserWithEmailAndPassword } from "./context/AuthContext"
 
 export default function SignUp(){
 
@@ -21,7 +20,11 @@ export default function SignUp(){
     function submitCredentials(e){
         e.preventDefault()
         if((credentials.username && credentials.passwordOne) && (credentials.passwordOne === credentials.passwordTwo)){
-            signUpUserWithEmailAndPassword(credentials.username, credentials.passwordOne)
+            try{
+                signUpUserWithEmailAndPassword(credentials.username, credentials.passwordOne)
+            }catch (error){
+                console.log(error);
+            }
         }else{
             setCredentialsError({usernameError: false, passwordOneError: false, passwordTwoError: false})
             if(!credentials.username){

@@ -1,17 +1,15 @@
 import { useState } from "react"
 import { Container, TextField, Button, Stack, Typography } from "@mui/material"
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid2';
 import {Box} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { signUserInAnonymously } from '../firebase/auth.js'
-import { useAuth } from "./context/AuthContext.jsx";
+import { useAuth, loginWithEmailAndPassword, signUserInAnonymously } from "./context/AuthContext.jsx";
+
 
 
 export default function Login(){
 
 const { currentUser } = useAuth()
-
+const [error, setError] = useState(null)
 
 const navigateTo = useNavigate()
 
@@ -31,10 +29,14 @@ function handleChange(e){
         }
     ))
 }
-function submitCredentials(e){
+async function submitCredentials(e){
     e.preventDefault()
     if(loginCredentials.username && loginCredentials.password){
-        submitCredentialsToServer()
+        try {
+           await loginWithEmailAndPassword(loginCredentials.username,loginCredentials.password)
+        } catch {
+            setError(true)
+        }
     }else{
         setLoginCredentialsValidation({
             usernameError: false,
@@ -59,17 +61,17 @@ function submitCredentials(e){
     }
 }
 
-async function submitCredentialsToServer(){
+// async function submitCredentialsToServer(){
     
-    const response = await fetch("http://localhost:3000/api/data",{
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify({...loginCredentials})
-    })
-    // const data = await response.json()
-}
+//     const response = await fetch("http://localhost:3000/api/data",{
+//         method: 'POST',
+//         headers: {
+//             'Content-type': 'application/json'
+//         },
+//         body: JSON.stringify({...loginCredentials})
+//     })
+//     // const data = await response.json()
+// }
 
     return (
         <Container maxWidth="xs">
@@ -89,6 +91,7 @@ async function submitCredentialsToServer(){
                 }}
             >
                 <Typography component='h2' variant="h4" >Log In</Typography>
+                {error && <Typography variant="body1" color="error">Incorrect Username or Password</Typography>}
                 <TextField
                     fullWidth
                     onChange={handleChange}
