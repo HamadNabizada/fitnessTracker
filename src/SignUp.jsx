@@ -1,8 +1,11 @@
 import { Box, Container, Typography, TextField, Button } from "@mui/material"
 import { useState } from "react"
-import { signUpUserWithEmailAndPassword, signUserInAnonymously } from "../firebase/auth"
+import { signUpUserWithEmailAndPassword } from "../firebase/auth"
+import { useAuth } from "./context/AuthContext"
 
 export default function SignUp(){
+
+    const { currentUser } = useAuth()
 
     const [credentials, setCredentials] = useState({
         username: null,
@@ -119,7 +122,6 @@ export default function SignUp(){
                     gap: '1rem',
                 }}>
                     <Button variant="contained" type="submit">Sign up</Button>
-                    <Button onClick={() => signUserInAnonymously()} variant="outlined">Sign In Anonymously</Button>
                 </Box>
             </Box>
         </Container>

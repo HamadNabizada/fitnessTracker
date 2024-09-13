@@ -4,9 +4,14 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid2';
 import {Box} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { signUserInAnonymously } from '../firebase/auth.js'
+import { useAuth } from "./context/AuthContext.jsx";
 
 
 export default function Login(){
+
+const { currentUser } = useAuth()
+
 
 const navigateTo = useNavigate()
 
@@ -83,7 +88,7 @@ async function submitCredentialsToServer(){
                     borderRadius: '5px',
                 }}
             >
-                <Typography component='h2' variant="h4" >Sign In</Typography>
+                <Typography component='h2' variant="h4" >Log In</Typography>
                 <TextField
                     fullWidth
                     onChange={handleChange}
@@ -106,20 +111,25 @@ async function submitCredentialsToServer(){
                 />
                 <Box sx={{
                     display: 'flex',
-                    gap: '1rem',
+                    flexDirection: 'column',
+                    gap: '.4rem',
                 }}>
-                    <Button
-                        variant="contained"
-                        type="submit"
-                    >
-                        Log in
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        onClick={()=>navigateTo('/signup')}
-                    >
-                        Sign up
-                    </Button>
+                    <Box sx={{display: 'flex', gap: '1rem'}}>
+                        <Button
+                            variant="contained"
+                            type="submit"
+                        >
+                            Log in
+                        </Button>
+                        <Button onClick={() => signUserInAnonymously()} variant="outlined">Sign In Anonymously</Button>
+                    </Box>
+                    <Typography variant="body1" textAlign='center'>OR</Typography>
+                        <Button
+                            variant="outlined"
+                            onClick={()=>navigateTo('/signup')}
+                        >
+                            Sign up
+                        </Button>
                 </Box>
             </Box>
         </Container>

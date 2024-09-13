@@ -6,9 +6,13 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button'
 import { AppBar, keyframes, Toolbar } from '@mui/material'
 import { format } from 'date-fns'
+import { useAuth } from './context/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 
 export default function Home() {
+  const { currentUser } = useAuth()
+
   const [addingExercise, setAddingExercise] = useState(false);
   const [listOfExercises, setListOfExercises] = useState([])
   const [exerciseForm, setExerciseForm] = useState({
@@ -45,9 +49,9 @@ export default function Home() {
   }
 
   useEffect(()=>{
+    
     fetchData(url)
   },[])
-
 
 
   function createWorkoutLogElems(){
