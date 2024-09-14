@@ -19,7 +19,10 @@ export const signUserInAnonymously = async () => {
    return  await signInAnonymously(auth)
 }
 
-
+//Sign out User
+export const signOutUser = async () =>{
+    return await auth.signOut()
+}
 
 
 export function useAuth() {

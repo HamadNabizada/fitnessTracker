@@ -1,10 +1,9 @@
 import { Typography, Drawer, Box } from "@mui/material"
-import { List, ListItem, ListItemText } from "@mui/material"
 import { useNavigate } from 'react-router-dom'
-import { AppBar, Toolbar } from '@mui/material'
+import { useAuth } from "../context/AuthContext"
 
 export default function Layout({ children }){
-    
+    const {currentUser} = useAuth()
     const navigate = useNavigate()
     const drawerWidth = 200
 
@@ -45,9 +44,20 @@ export default function Layout({ children }){
                 <Box p={2} sx={styles.boxList} onClick={()=>navigate('/')} textAlign='center'>
                     <Typography variant='h5'>Home</Typography>
                 </Box>
+                {currentUser ? 
+                <>
+                <Box p={2} sx={styles.boxList} onClick={()=>navigate('/profile')} textAlign='center'>
+                    <Typography variant='h5'>Profile</Typography>
+                </Box>
+                </>
+                :
+                <>
                 <Box p={2} sx={styles.boxList} onClick={()=>navigate('/login')} textAlign='center'>
                     <Typography variant='h5'>Login</Typography>
                 </Box>
+                </>
+                }
+                
             </Drawer>
             <div style={styles.page}>
                 <div style={styles.toolbar}></div>

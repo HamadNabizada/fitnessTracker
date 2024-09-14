@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button'
-import { AppBar, Box, keyframes, Toolbar } from '@mui/material'
+import { AppBar, Box, Toolbar } from '@mui/material'
 import { format } from 'date-fns'
 import { useAuth } from './context/AuthContext';
 import { Link } from '@mui/material'
@@ -136,7 +136,7 @@ export default function Home() {
       <>
         <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
           <Typography variant='h3'>Welcome.</Typography> 
-          <Typography variant='h5'>Please <Link path="/login">log in.</Link></Typography> 
+          <Typography variant='h5'>Please <Link href="/login">log in.</Link></Typography> 
         </Box>
         
       </>: 
