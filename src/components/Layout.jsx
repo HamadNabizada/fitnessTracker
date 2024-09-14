@@ -57,6 +57,10 @@ export default function Layout({ children }){
                 </Box>
                 </>
                 }
+                <Box p={2} sx={styles.boxList} onClick={()=>navigate('/daily-entry')} textAlign='center'>
+                    <Typography variant='h5'>Daily Entry</Typography>
+                </Box>
+                
                 
             </Drawer>
             <div style={styles.page}>

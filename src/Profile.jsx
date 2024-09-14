@@ -1,6 +1,7 @@
 import { Container, Box, Typography, Link, Button } from '@mui/material'
 import { signOutUser, useAuth } from './context/AuthContext'
 import { useNavigate } from 'react-router-dom';
+import NoUserLoggedIn from './components/NoUserLoggedIn';
 
 export default function Profile(){
 
@@ -38,9 +39,7 @@ export default function Profile(){
     return(
         <Container sx={styles.container}>
             {!currentUser ?
-                <Typography variant='body1'>
-                    You are not logged in. Click <Link href="/login">here</Link> to log in.
-                </Typography>
+                <NoUserLoggedIn/>
                 :
                 <Box sx={styles.profileBox}>
                     <Typography variant='h4'>User: {currentUser.isAnonymous ? 'Anonymous' : currentUser.email}</Typography>
