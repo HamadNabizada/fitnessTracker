@@ -24,7 +24,7 @@ export default function Home() {
     exerciseNameError:false,
     repsError:false,
     weightError:false
-})
+  })
 
   const drawerWidth = 240
 
