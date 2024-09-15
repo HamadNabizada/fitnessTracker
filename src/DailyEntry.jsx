@@ -11,7 +11,7 @@ import { useState } from "react"
 
 export default function DailyEntry(){
     const currentDate = format(new Date(), 'do MMMM y')
-
+    const url = 'http://localhost:3000/api/data/daily-entry'
     const [dailyData, setDailyData] = useState({
         date: currentDate,
         weight: null,
@@ -62,9 +62,23 @@ export default function DailyEntry(){
             }
         ))
     }
-    function submitData(e){
+    async function submitData(e){
         e.preventDefault()
-        console.log(dailyData.weight,dailyData.date)
+        try{
+           await submitToDB()
+        }catch(error){
+            console.log(error)
+        }
+    }
+    async function submitToDB(){
+        const response = await fetch(url,{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(dailyData)
+        })
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`); // Handle non-200 responses
+        }
     }
 
     return (
