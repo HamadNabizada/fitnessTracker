@@ -14,8 +14,8 @@ const [error, setError] = useState(null)
 const navigateTo = useNavigate()
 
 const [loginCredentials, setLoginCredentials] = useState({
-    username: null,
-    password: null
+    username: '',
+    password: ''
 })
 const [loginCredentialsValidation, setLoginCredentialsValidation] = useState({
     usernameError: false,
@@ -83,6 +83,7 @@ async function submitCredentials(e){
                 {error && <Typography variant="body1" color="error">Incorrect Username or Password</Typography>}
                 <TextField
                     fullWidth
+                    value={loginCredentials.username}
                     onChange={handleChange}
                     color='primary'
                     required
@@ -93,6 +94,8 @@ async function submitCredentials(e){
                 />
                 <TextField
                     fullWidth
+                    value={loginCredentials.password}
+                    type="password"
                     onChange={handleChange}
                     color='primary'
                     required

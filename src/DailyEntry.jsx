@@ -81,10 +81,12 @@ export default function DailyEntry(){
     }
     async function submitData(e){
         e.preventDefault()
-        try{
-           await submitToDB()
-        }catch(error){
-            console.log(error)
+        if(ValidateData()){
+            try{
+               await submitToDB()
+            }catch(error){
+                console.log(error)
+            }
         }
     }
     async function submitToDB(){
@@ -218,11 +220,11 @@ export default function DailyEntry(){
         return noErrorsInExercisesArray
     }
     
-    function submitData1(){
-        ValidateData()
-        console.log(dailyData)
-        console.log(errorCheck)
-    }
+    // function submitData1(){
+    //     ValidateData()
+    //     console.log(dailyData)
+    //     console.log(errorCheck)
+    // }
 
     return (
         <Container sx={styles.container}>
@@ -239,7 +241,7 @@ export default function DailyEntry(){
                 </Box>
                 {exerciseElems}
                 <Button onClick={updateDailyDataStateWithNewExerciseObject}><Typography >+ Add New Line</Typography></Button>
-                <Button onClick={submitData1} sx={styles.button} color="secondary" variant="contained">Submit</Button>
+                <Button onClick={submitData} sx={styles.button} color="secondary" variant="contained">Submit</Button>
             </Box>
         </Container>
     )

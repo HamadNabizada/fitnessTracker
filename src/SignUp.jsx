@@ -7,9 +7,9 @@ export default function SignUp(){
     const navigateTo = useNavigate()
 
     const [credentials, setCredentials] = useState({
-        username: null,
-        passwordOne: null,
-        passwordTwo: null
+        username: '',
+        passwordOne: '',
+        passwordTwo: ''
     })
     const [credentialsError, setCredentialsError] = useState({
         usernameError: false,
@@ -103,6 +103,7 @@ export default function SignUp(){
                 />
                 <TextField
                     fullWidth
+                    type="password"
                     onChange={handleChange}
                     color='primary'
                     required
@@ -110,9 +111,12 @@ export default function SignUp(){
                     variant="outlined"
                     name='passwordOne'
                     error={credentialsError.passwordOneError}
+                    value={credentials.passwordOne}
                 />
                 <TextField
                     fullWidth
+                    type="password"
+                    value={credentials.passwordTwo}
                     onChange={handleChange}
                     color='primary'
                     required
