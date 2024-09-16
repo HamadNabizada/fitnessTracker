@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import router from './Routes/daily-entry.js'
+import router from './Routes/journal.js'
 dotenv.config()
 
 const app = express()
