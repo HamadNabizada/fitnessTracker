@@ -7,7 +7,7 @@ export default function WorkoutInputForm({
     currentUser
 }){
 
-    const url = 'http://localhost:3000/api/data/journal'
+    const url = 'http://localhost:3000/api/data/journal/entry'
     const [inputData, setInputData] = useState({
         date: currentDate,
         weight: null,
@@ -93,7 +93,10 @@ export default function WorkoutInputForm({
         const response = await fetch(url,{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({...inputData,userUID: currentUser.uid})
+            body: JSON.stringify({
+                entry:{...inputData},
+                userUID: currentUser.uid
+            })
         })
         if (!response.ok) {
             const error = await response.json()

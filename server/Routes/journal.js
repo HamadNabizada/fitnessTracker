@@ -1,12 +1,23 @@
 import express from 'express'
-import { addEntry, validateEntry } from '../dbController.js'
+import { addEntry, validateEntry, updateEntry } from '../dbController.js'
 
 const router = express.Router()
 
-
-router.post('/api/data/journal',(req,res)=>{
+router.put('/api/data/journal/update',(req,res)=>{
     if(!validateEntry(req.body)){
-        res.status(400)
+        res.status(400).json({message: `Invalid or missing values entered!`})
+    }
+    try{
+        updateEntry(req.body)
+    }catch(error){
+        console.log(error)
+        res.status(500).json({message: `Something went wrong.`})
+    }
+})
+
+router.post('/api/data/journal/entry',(req,res)=>{
+    if(!validateEntry(req.body)){
+        res.status(400).json({message: `Invalid or missing values entered!`})
     }
     try{
         const alreadyExists = addEntry(req.body)
