@@ -2,7 +2,6 @@ import { Box, Container, TextField, Typography, Button } from "@mui/material"
 import { format } from 'date-fns'
 import NoUserLoggedIn from "./components/NoUserLoggedIn"
 import { useAuth } from "./context/AuthContext"
-import { useEffect, useState } from "react"
 import WorkoutInputForm from "./components/WorkoutInputForm"
 
 export default function DailyEntry(){

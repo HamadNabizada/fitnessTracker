@@ -30,11 +30,12 @@ async function updateEntry(data){
 }
 
 function validateEntry(data){
+    const { userUID, entry } = data
     let allDataIsValid = true
-    if(!data.date || !data.weight){
+    if(!entry.date || !entry.weight){
         allDataIsValid = false
     }
-    data.exercises.forEach(item =>{
+    entry.exercises.forEach(item =>{
         if(!item.exerciseName || !item.reps || !item.sets || !item.weight){
             allDataIsValid = false
         }

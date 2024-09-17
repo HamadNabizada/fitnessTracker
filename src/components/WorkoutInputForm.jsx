@@ -6,6 +6,7 @@ export default function WorkoutInputForm({
     currentDate,
     currentUser
 }){
+    const [loading, setLoading] = useState(false)
 
     const url = 'http://localhost:3000/api/data/journal/entry'
     const [inputData, setInputData] = useState({
@@ -80,6 +81,8 @@ export default function WorkoutInputForm({
         })
     }
     async function submitData(e){
+        if(loading) return
+        setLoading(true)
         e.preventDefault()
         if(ValidateData()){
             try{
@@ -88,6 +91,7 @@ export default function WorkoutInputForm({
                 console.log(error)
             }
         }
+        setLoading(false)
     }
     async function submitToDB(){
         const response = await fetch(url,{
