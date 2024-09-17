@@ -3,6 +3,11 @@ import { addEntry, validateEntry, updateEntry } from '../dbController.js'
 
 const router = express.Router()
 
+router.get('/api/data/journal',(req,res)=>{
+    console.log('Fetching Journal Data...')
+    res.json({message: 'fetch recieved'})
+})
+
 router.put('/api/data/journal/update',(req,res)=>{
     if(!validateEntry(req.body)){
         res.status(400).json({message: `Invalid or missing values entered!`})

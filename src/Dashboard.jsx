@@ -1,18 +1,22 @@
-import { Container, Icon, Card, Box, Typography, CardActionArea, CardContent } from '@mui/material'
+import { Container, Card, Box, Typography, CardActionArea, CardContent } from '@mui/material'
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import InsertPhotoIcon from '@mui/icons-material/Photo'
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
+import BookIcon from '@mui/icons-material/Book'
+import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard(){
+    const navigateTo = useNavigate()
 
     const styles = {
         cardStyle: {
-            maxWidth: '500px',
-            // minHeight: '130px',
-            // border: '1px solid red'
+            marginBottom: '1rem'
         },
         cardContentStyle:{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            fontSize: '100px'
 
         },
         cardWrapper : {
@@ -26,48 +30,52 @@ export default function Dashboard(){
         <Container>
             <Box sx={styles.cardWrapper}>
                 <Card sx={styles.cardStyle}>
-                    <CardActionArea>
+                    <CardActionArea onClick={() => navigateTo('/profile')}>
                         <CardContent sx={styles.cardContentStyle}>
-                            <Typography gutterBottom variant='h5'>
+                            <Typography color='primary' gutterBottom variant='h4'>
                                 Profile
                             </Typography>
-                            <Typography variant='body2'>
+                            <AccountBoxIcon color='primary' fontSize='inherit'/>
+                            <Typography color='textPrimary' variant='body1'>
                                 Go to your profile settings
                             </Typography>
                         </CardContent>
                     </CardActionArea>
                 </Card>
                 <Card sx={styles.cardStyle}>
-                    <CardActionArea>
+                    <CardActionArea onClick={() => navigateTo('/journal')}>
                         <CardContent sx={styles.cardContentStyle}>
-                            <Typography gutterBottom variant='h5'>
+                            <Typography color='primary' gutterBottom variant='h4'>
                                 Journal
                             </Typography>
-                            <Typography variant='body2'>
+                            <BookIcon color='primary' fontSize='inherit'/>
+                            <Typography color='textPrimary' variant='body1'>
                                 See your workout journal
                             </Typography>
                         </CardContent>
                     </CardActionArea>
                 </Card>
                 <Card sx={styles.cardStyle}>
-                    <CardActionArea>
+                    <CardActionArea onClick={() => navigateTo('/daily-entry')}>
                         <CardContent sx={styles.cardContentStyle}>
-                            <Typography gutterBottom variant='h5'>
+                            <Typography color='primary' gutterBottom variant='h4'>
                                 Daily Entry
                             </Typography>
-                            <Typography variant='body2'>
-                                Entry your daily workout
+                            <CalendarTodayIcon color='primary' fontSize='inherit'/>
+                            <Typography color='textPrimary' variant='body1'>
+                                Save your daily workout
                             </Typography>
                         </CardContent>
                     </CardActionArea>
                 </Card>
                 <Card sx={styles.cardStyle}>
-                    <CardActionArea>
+                    <CardActionArea onClick={() => navigateTo('/pictures')}>
                         <CardContent sx={styles.cardContentStyle}>
-                            <Typography gutterBottom variant='h5'>
-                                Pics
+                            <Typography color='primary' gutterBottom variant='h4'>
+                                Pictures
                             </Typography>
-                            <Typography variant='body2'>
+                            <InsertPhotoIcon color='primary' fontSize='inherit'/>
+                            <Typography color='textPrimary' variant='body1'>
                                 Save pics to track your progress
                             </Typography>
                         </CardContent>

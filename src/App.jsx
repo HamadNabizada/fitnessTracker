@@ -11,6 +11,7 @@ import Layout from "./components/Layout";
 import Profile from "./Profile";
 import DailyEntry from "./DailyEntry";
 import Dashboard from './Dashboard';
+import Journal from './Journal';
 
 export default function App(){
 
@@ -19,12 +20,13 @@ export default function App(){
       <BrowserRouter>
         <Layout>
           <Routes>
-            <Route path="/" element={<Home/>} />
+            <Route path="/" element={<Dashboard/>} />
             <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/signup" element={<SignUp/>} />
             <Route path="/profile" element={<Profile/>} />
             <Route path="/daily-entry" element={<DailyEntry/>}/>
+            <Route path="/journal" element={<Journal/>}/>
           </Routes>
         </Layout>
       </BrowserRouter>
