@@ -10,6 +10,7 @@ import SignUp from './SignUp'
 import Layout from "./components/Layout";
 import Profile from "./Profile";
 import DailyEntry from "./DailyEntry";
+import Dashboard from './Dashboard';
 
 export default function App(){
 
@@ -19,6 +20,7 @@ export default function App(){
         <Layout>
           <Routes>
             <Route path="/" element={<Home/>} />
+            <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/signup" element={<SignUp/>} />
             <Route path="/profile" element={<Profile/>} />
