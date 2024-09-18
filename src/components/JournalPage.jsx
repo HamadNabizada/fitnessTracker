@@ -1,7 +1,43 @@
 import { Container, Paper, Box, Button, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
 
-export default function JournalPage({date, userUID}){
+export default function JournalPage({
+    date, 
+    userUID
+}){
+    const [entryData, setEntryData] = useState({})
+    const [loading, setLoading] = useState(false)
     
+    const url = 'http://localhost:3000/api/data/journal'
+
+    async function fetchData(url){
+        try{
+            const response = await fetch(url,{
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    userUID: userUID, 
+                    date: date
+                })
+            })
+            if (!response.ok) {
+                throw new Error(`Error: Something went wrong.`);
+            }
+            const data = await response.json()
+            console.log(data)
+            return data
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+    useEffect(() =>{
+        if(loading) return
+        setLoading(true)
+        const fetchedData = fetchData(url)
+        setEntryData(fetchedData)
+        setLoading(false)
+    }, [])
 
     const styles = {
         containerStyle: {

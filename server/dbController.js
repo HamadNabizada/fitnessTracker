@@ -6,7 +6,7 @@ async function addEntry(data){
     const docRef = db.collection('users').doc(userUID).collection('journal').doc(entry.date)
     try{
         const doc = await docRef.get()
-        if(doc.exists){
+        if(doc){
             return true
         }else{ 
             await docRef.set(entry)
@@ -45,4 +45,21 @@ function validateEntry(data){
     return allDataIsValid
 }
 
-export { addEntry, validateEntry, updateEntry}
+async function retrieveEntry(data){
+    const { userUID, date } = data
+    const docRef = db.collection('users').doc(userUID).collection('journal').doc(date)
+    const doc = await docRef.get()
+    if(doc){
+        try{
+            return doc.data()
+        }catch(error){
+            console.log(error)
+            throw new Error("Issue with retrieving Entry")
+        }
+    }else{
+        return false
+    }
+}
+
+
+export { addEntry, validateEntry, updateEntry, retrieveEntry}

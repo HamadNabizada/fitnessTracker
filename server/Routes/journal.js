@@ -1,11 +1,22 @@
 import express from 'express'
-import { addEntry, validateEntry, updateEntry } from '../dbController.js'
+import { addEntry, validateEntry, updateEntry, retrieveEntry } from '../dbController.js'
 
 const router = express.Router()
 
-router.get('/api/data/journal',(req,res)=>{
-    console.log('Fetching Journal Data...')
-    res.json({message: 'fetch recieved'})
+//Returns Journal Entry for the selected Date and UserUID
+//Does not make any changes to DB
+router.post('/api/data/journal',async (req,res)=>{
+    try{
+        const data = await retrieveEntry(req.body)
+        if(!data){
+            res.status(400).json({message: `No entry for ${req.body.date}`})
+        }else{
+            res.status(200).json(data)
+        }
+    }catch(error){
+        console.log(error)
+        res.status(500).json({message: 'Something went wrong'})
+    }
 })
 
 router.put('/api/data/journal/update',async (req,res)=>{
