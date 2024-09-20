@@ -1,12 +1,11 @@
 import { Box, Container, TextField, Typography, Button } from "@mui/material"
-import { format } from 'date-fns'
 import NoUserLoggedIn from "./components/NoUserLoggedIn"
+import dayjs from "dayjs"
 import { useAuth } from "./context/AuthContext"
 import WorkoutInputForm from "./components/WorkoutInputForm"
 
 export default function DailyEntry(){
-    const date = new Date()
-    const currentDate = format(date, 'do MMMM y')
+    const date = dayjs()
 
     const { currentUser } = useAuth()
 
@@ -33,9 +32,9 @@ export default function DailyEntry(){
             <Box                 
                 sx={styles.boxStyle}
             >
-                <Typography color="primary" variant="h4">Daily Entry: {currentDate}</Typography>
+                <Typography color="primary" variant="h4">{`Daily Entry: ${date.format('DD MMMM YYYY')}`}</Typography>
                 <WorkoutInputForm 
-                    currentDate = {currentDate}
+                    date = {date}
                     currentUser = {currentUser}
                 />
             </Box>

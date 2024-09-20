@@ -5,7 +5,7 @@ const router = express.Router()
 
 //Returns Journal Entry for the selected Date and UserUID
 //Does not make any changes to DB
-router.post('/api/data/journal',async (req,res)=>{
+router.post('/api/data/journal/get-data',async (req,res)=>{
     try{
         const data = await retrieveEntry(req.body)
         if(!data){
@@ -36,6 +36,7 @@ router.post('/api/data/journal/entry',async (req,res)=>{
         res.status(400).json({message: `Invalid or missing values entered!`})
     }
     try{
+        console.log(req.body)
         const alreadyExists = await addEntry(req.body)
         if(alreadyExists){
             res.status(400).json({message: `Entry for ${req.body.entry.date} already exists!`})

@@ -6,7 +6,7 @@ async function addEntry(data){
     const docRef = db.collection('users').doc(userUID).collection('journal').doc(entry.date)
     try{
         const doc = await docRef.get()
-        if(doc){
+        if(doc.exists){
             return true
         }else{ 
             await docRef.set(entry)
@@ -49,7 +49,7 @@ async function retrieveEntry(data){
     const { userUID, date } = data
     const docRef = db.collection('users').doc(userUID).collection('journal').doc(date)
     const doc = await docRef.get()
-    if(doc){
+    if(doc.exists){
         try{
             return doc.data()
         }catch(error){

@@ -1,43 +1,14 @@
-import { Container, Paper, Box, Button, Typography } from '@mui/material'
+import { Container, Paper, Box,Button, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
+import dayjs from 'dayjs'
 
 export default function JournalPage({
-    date, 
-    userUID
+    entryData,
+    loading
 }){
-    const [entryData, setEntryData] = useState({})
-    const [loading, setLoading] = useState(false)
-    
-    const url = 'http://localhost:3000/api/data/journal'
 
-    async function fetchData(url){
-        try{
-            const response = await fetch(url,{
-                method: "POST",
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    userUID: userUID, 
-                    date: date
-                })
-            })
-            if (!response.ok) {
-                throw new Error(`Error: Something went wrong.`);
-            }
-            const data = await response.json()
-            console.log(data)
-            return data
-        }catch(error){
-            console.log(error)
-        }
-    }
-
-    useEffect(() =>{
-        if(loading) return
-        setLoading(true)
-        const fetchedData = fetchData(url)
-        setEntryData(fetchedData)
-        setLoading(false)
-    }, [])
+    const [date, setDate] = useState('')
+    const [weight, setWeight] = useState('')
 
     const styles = {
         containerStyle: {
@@ -51,7 +22,7 @@ export default function JournalPage({
         },
         exercisesWrapper: {
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
         },
         page: {
             padding: '1rem'
@@ -64,16 +35,30 @@ export default function JournalPage({
     }
 
     function createExerciseElements(){
-        return(
-            <Box>
-                <Typography>100</Typography>
-                <Typography>100</Typography>
-                <Typography>100</Typography>
-                <Typography>100</Typography>
-            </Box>
-        )
+        if(!entryData){
+            return
+        }
+        const elemsArray = entryData.exercises.map((item, index)=>{
+            return(
+                <Box key={index} sx={styles.exercisesWrapper}>
+                    <Typography variant='body1'>Exercise: {item.exerciseName}</Typography>
+                    <Typography variant='body1'>Sets: {item.sets}</Typography>
+                    <Typography variant='body1'>Reps: {item.reps}</Typography>
+                    <Typography variant='body1'>Weight: {item.weight}lbs</Typography>
+                </Box>
+            )
+        })
+        return elemsArray
     }
 
+    useEffect(()=>{
+        if(entryData){
+            setWeight(entryData.weight)
+            const dateString = entryData.date
+            const formattedDate = dayjs(dateString, 'MM DD YYYY')
+            setDate(formattedDate.format('DD MMMM YYYY'))
+        }
+    }, [entryData])
 
     return(
         <Container sx={styles.containerStyle}>
@@ -81,11 +66,11 @@ export default function JournalPage({
                 <Box sx={styles.dateWeightWrapper}>
                     <Box sx={styles.labelValueWrapper}>
                         <Typography variant='h6'>Date: </Typography>
-                        <Typography variant='h5'>12/12/12</Typography>
+                        <Typography variant='h5'>{date}</Typography>
                     </Box>
                     <Box sx={styles.labelValueWrapper}>
                         <Typography variant='h6'>Weight: </Typography>
-                        <Typography variant='h5'>100</Typography>
+                        <Typography variant='h5'>{weight}</Typography>
                     </Box>
                 </Box>
                 <Box sx={styles.labelValueWrapper}>

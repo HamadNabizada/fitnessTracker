@@ -5,9 +5,9 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button'
 import { AppBar, Box, Toolbar } from '@mui/material'
-import { format } from 'date-fns'
 import { useAuth } from './context/AuthContext';
 import { Link } from '@mui/material'
+import dayjs from 'dayjs';
 
 
 export default function Home() {
@@ -146,7 +146,7 @@ export default function Home() {
           elevation={0}
         >
           <Toolbar >
-              <Typography variant="body1">Today is the {format(new Date(), 'do MMMM y')} </Typography>
+              <Typography variant="body1">Today is the {dayjs().format('MM-DD-YYYY')} </Typography>
           </Toolbar>
         </AppBar>
       <Stack

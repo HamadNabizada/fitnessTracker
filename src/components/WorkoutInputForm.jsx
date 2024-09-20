@@ -3,14 +3,14 @@ import { useState } from 'react'
 
 
 export default function WorkoutInputForm({
-    currentDate,
+    date,
     currentUser
 }){
     const [loading, setLoading] = useState(false)
 
     const url = 'http://localhost:3000/api/data/journal/entry'
     const [inputData, setInputData] = useState({
-        date: currentDate,
+        date: date.format('MM DD YYYY'),
         weight: null,
         exercises: [{ exerciseName: '', sets: '', reps: '', weight: '' }],
     })
