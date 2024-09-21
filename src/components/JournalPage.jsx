@@ -21,8 +21,9 @@ export default function JournalPage({
             gap: '1rem',
         },
         exercisesWrapper: {
-            display: 'flex',
-            flexDirection: 'row',
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr 1fr 1fr',
+            // justifyItems: 'stretch',
         },
         page: {
             padding: '1rem'
@@ -31,9 +32,18 @@ export default function JournalPage({
             display: 'flex',
             flexDirection: 'row-reverse',
             justifyContent: 'space-between'
+        },
+        exerciseAndLabelWrapper: {
+            display: 'flex',
+            flexDirection: 'column',
+        },
+        exerciseLabelWrapper: {
+            borderBottom: '1px solid black',
+            // justifyItems: 'center',
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr 1fr 1fr'
         }
     }
-
     function createExerciseElements(){
         if(!entryData){
             return
@@ -41,10 +51,10 @@ export default function JournalPage({
         const elemsArray = entryData.exercises.map((item, index)=>{
             return(
                 <Box key={index} sx={styles.exercisesWrapper}>
-                    <Typography variant='body1'>Exercise: {item.exerciseName}</Typography>
-                    <Typography variant='body1'>Sets: {item.sets}</Typography>
-                    <Typography variant='body1'>Reps: {item.reps}</Typography>
-                    <Typography variant='body1'>Weight: {item.weight}lbs</Typography>
+                    <Typography variant='body1'>{item.exerciseName}</Typography>
+                    <Typography sx={{justifySelf: 'center'}} variant='body1'>{item.sets}</Typography>
+                    <Typography sx={{justifySelf: 'center'}} variant='body1'>{item.reps}</Typography>
+                    <Typography sx={{justifySelf: 'center'}} variant='body1'>{item.weight}</Typography>
                 </Box>
             )
         })
@@ -70,14 +80,17 @@ export default function JournalPage({
                     </Box>
                     <Box sx={styles.labelValueWrapper}>
                         <Typography variant='h6'>Weight: </Typography>
-                        <Typography variant='h5'>{weight}</Typography>
+                        <Typography variant='h5'>{weight} lbs</Typography>
                     </Box>
                 </Box>
-                <Box sx={styles.labelValueWrapper}>
-                    <Typography variant='h6'>Exercises: </Typography>
-                    <Box sx={styles.exercisesWrapper}>
-                        {createExerciseElements()}
+                <Box sx={styles.exerciseAndLabelWrapper}>
+                    <Box sx={styles.exerciseLabelWrapper}>
+                        <Typography color='primary' variant='h6'>Exercises: </Typography>
+                        <Typography sx={{justifySelf: 'center'}} color='primary' variant='h6'>Sets: </Typography>
+                        <Typography sx={{justifySelf: 'center'}} color='primary' variant='h6'>Reps: </Typography>
+                        <Typography sx={{justifySelf: 'center'}} color='primary' variant='h6'>Weight (lbs): </Typography>
                     </Box>
+                    {createExerciseElements()}
                 </Box>
             </Paper>
         </Container>

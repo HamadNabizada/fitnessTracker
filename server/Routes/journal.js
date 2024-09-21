@@ -9,7 +9,7 @@ router.post('/api/data/journal/get-data',async (req,res)=>{
     try{
         const data = await retrieveEntry(req.body)
         if(!data){
-            res.status(400).json({message: `No entry for ${req.body.date}`})
+            res.status(200).json({message: `No entry available`})
         }else{
             res.status(200).json(data)
         }
