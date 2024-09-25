@@ -1,5 +1,5 @@
 import express from 'express'
-import { addEntry, validateEntry, updateEntry, retrieveEntry } from '../dbController.js'
+import { addEntry, validateEntry, updateEntry, retrieveEntry, overwriteEntry } from '../dbController.js'
 
 const router = express.Router()
 
@@ -34,17 +34,34 @@ router.put('/api/data/journal/update',async (req,res)=>{
 router.post('/api/data/journal/entry',async (req,res)=>{
     if(!validateEntry(req.body)){
         res.status(400).json({message: `Invalid or missing values entered!`})
+        return
     }
     try{
-        console.log(req.body)
         const alreadyExists = await addEntry(req.body)
         if(alreadyExists){
-            res.status(400).json({message: `Entry for ${req.body.entry.date} already exists!`})
+            res.status(200).json({message: `Entry already exists!`,entry:req.body.entry})
+            return
         }
     }catch(error){
         console.error(error)
     }
-    res.status(200)
+    console.log('respnding status 200')
+    res.status(200).json({message: 'Entry submitted successfully.'})
+})
+
+router.put('/api/data/journal/entry/overwrite',async (req,res)=>{
+    if(!validateEntry(req.body)){
+        console.log('respnding status 400')
+        res.status(400).json({message: `Invalid or missing values entered!`})
+        return
+    }
+    try{
+        overwriteEntry(req.body)
+        res.status(200).json({message: 'Entry submitted successfully.'})
+        return
+    }catch(error){
+        console.error(error)
+    }
 })
 
 export default router

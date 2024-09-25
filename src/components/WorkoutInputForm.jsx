@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 
 export default function WorkoutInputForm({
+    handleResponse,
     date,
     currentUser
 }){
@@ -106,6 +107,8 @@ export default function WorkoutInputForm({
             const error = await response.json()
             throw new Error(error.message); // Handle non-200 responses
         }
+        const data = await response.json()
+        handleResponse(data)
     }
     function updateDataStateWithNewExerciseObject(){
         setInputData(prev=>{

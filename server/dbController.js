@@ -30,14 +30,17 @@ async function updateEntry(data){
 }
 
 function validateEntry(data){
+    console.log(data.entry.date)
     const { userUID, entry } = data
     let allDataIsValid = true
-    if(!entry.date || !entry.weight){
+    if(!entry.date || !entry.weight || !entry.exercises){
         allDataIsValid = false
+        return
     }
     entry.exercises.forEach(item =>{
         if(!item.exerciseName || !item.reps || !item.sets || !item.weight){
             allDataIsValid = false
+            return
         }
     })
 
@@ -62,4 +65,19 @@ async function retrieveEntry(data){
 }
 
 
-export { addEntry, validateEntry, updateEntry, retrieveEntry}
+async function overwriteEntry(data){
+    const { userUID, entry } = data
+    const docRef = db.collection('users').doc(userUID).collection('journal').doc(entry.date)
+    const doc = await docRef.get()
+    if(doc.exists){
+        try{
+            await docRef.set(data.entry)
+        }catch(error){
+            console.log(error)
+            throw new Error("Issue with overwriting data")
+        }
+    }
+
+}
+
+export { addEntry, validateEntry, updateEntry, retrieveEntry, overwriteEntry}
