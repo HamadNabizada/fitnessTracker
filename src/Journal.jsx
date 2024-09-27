@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react'
 import ForwardIcon from '@mui/icons-material/Forward';
 import IconButton from '@mui/material/IconButton';
+import NoUserLoggedIn from './components/NoUserLoggedIn.jsx'
 
 export default function Journal(){
 
@@ -15,6 +16,14 @@ export default function Journal(){
     const [date, setDate] = useState(dayjs())
     const [entryData, setEntryData] = useState(null)
     const [loading, setLoading] = useState(false)
+
+    if(!currentUser){
+        return (
+            <Container>
+                <NoUserLoggedIn/>
+            </Container>
+        )
+    }
 
     const messageRef = {
         noAvailableData: 'No entry available'

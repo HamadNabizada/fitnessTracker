@@ -1,4 +1,5 @@
 import express from 'express'
+import multer from 'multer'
 import { addEntry, validateEntry, updateEntry, retrieveEntry, overwriteEntry } from '../dbController.js'
 
 const router = express.Router()
@@ -62,6 +63,12 @@ router.put('/api/data/journal/entry/overwrite',async (req,res)=>{
     }catch(error){
         console.error(error)
     }
+})
+
+
+router.post('/api/data/pictures/upload', async (req,res)=>{
+    console.log('Image received....')
+    res.status(200).json({message:'Image saved successfully'})
 })
 
 export default router

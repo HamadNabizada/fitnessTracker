@@ -12,6 +12,7 @@ import Profile from "./Profile";
 import DailyEntry from "./DailyEntry";
 import Dashboard from './Dashboard';
 import Journal from './Journal';
+import Pictures from './Pictures';
 
 export default function App(){
 
@@ -27,6 +28,7 @@ export default function App(){
             <Route path="/profile" element={<Profile/>} />
             <Route path="/daily-entry" element={<DailyEntry/>}/>
             <Route path="/journal" element={<Journal/>}/>
+            <Route path="/pictures" element={<Pictures/>}/>
           </Routes>
         </Layout>
       </BrowserRouter>

@@ -222,12 +222,12 @@ export default function WorkoutInputForm({
             sx={styles.boxStyle}
         >
             <Box sx={styles.labelAndInputWrapper}>
-                <Typography color='secondary' variant='body1' sx={styles.label} >Weight:</Typography>
+                <Typography color='primary' variant='body1' sx={styles.label} >Weight:</Typography>
                 <TextField error={errorCheck.weight} required onChange={handleChange} name='weight' label='lbs' type="number" autoComplete="false" variant="outlined" />
             </Box>
             {exerciseElems}
             <Button onClick={updateDataStateWithNewExerciseObject}><Typography >+ Add New Line</Typography></Button>
-            <Button onClick={submitData} sx={styles.button} color="secondary" variant="contained">Submit</Button>
+            <Button onClick={submitData} sx={styles.button} color="primary" variant="contained">Submit</Button>
         </Box>
     )
 }

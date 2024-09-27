@@ -63,6 +63,9 @@ export default function Layout({ children }){
                 <Box p={2} sx={styles.boxList} onClick={()=>navigate('/journal')} textAlign='center'>
                     <Typography variant='h5'>Journal</Typography>
                 </Box>
+                <Box p={2} sx={styles.boxList} onClick={()=>navigate('/pictures')} textAlign='center'>
+                    <Typography variant='h5'>Pictures</Typography>
+                </Box>
                 
                 
             </Drawer>
