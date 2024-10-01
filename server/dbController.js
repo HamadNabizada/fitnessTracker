@@ -1,6 +1,6 @@
 import { db } from './firebase.js'
 
-
+//Adds an entry to the journal collection
 async function addEntry(data){
     const { userUID, entry } = data
     const docRef = db.collection('users').doc(userUID).collection('journal').doc(entry.date)
@@ -18,6 +18,7 @@ async function addEntry(data){
     }
 }
 
+//updates an entry to the journal collection
 async function updateEntry(data){
     const { userUID, entry } = data 
     const docRef = db.collection('users').doc(userUID).collection('journal').doc(entry.date)
@@ -29,6 +30,7 @@ async function updateEntry(data){
     }
 }
 
+//validates data before any queries to DB. Returns true if valid data
 function validateEntry(data){
     console.log(data.entry.date)
     const { userUID, entry } = data
@@ -48,6 +50,7 @@ function validateEntry(data){
     return allDataIsValid
 }
 
+//returns entry at the specified date
 async function retrieveEntry(data){
     const { userUID, date } = data
     const docRef = db.collection('users').doc(userUID).collection('journal').doc(date)
@@ -64,7 +67,7 @@ async function retrieveEntry(data){
     }
 }
 
-
+//overwrites journal entry at the specified date
 async function overwriteEntry(data){
     const { userUID, entry } = data
     const docRef = db.collection('users').doc(userUID).collection('journal').doc(entry.date)
